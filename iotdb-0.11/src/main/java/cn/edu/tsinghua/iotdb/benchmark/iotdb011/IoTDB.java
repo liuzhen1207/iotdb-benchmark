@@ -391,7 +391,7 @@ public class IoTDB implements IDatabase {
    */
   private String getSimpleQuerySqlHead(List<DeviceSchema> devices) {
     StringBuilder builder = new StringBuilder();
-    builder.append("SELECT ");
+    builder.append("DELETE ");
     List<String> querySensors = devices.get(0).getSensors();
     builder.append(querySensors.get(0));
     for (int i = 1; i < querySensors.size(); i++) {
