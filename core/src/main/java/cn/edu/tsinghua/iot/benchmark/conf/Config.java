@@ -278,6 +278,9 @@ public class Config {
   /** if enable the thrift compression */
   private boolean ENABLE_THRIFT_COMPRESSION = false;
 
+  /** Maximum Thrift frame size used by IoTDB Session clients, in bytes */
+  private int IOTDB_THRIFT_MAX_FRAME_SIZE = 64 * 1024 * 1024;
+
   /** if enable the iotdb-rpc compression */
   private boolean ENABLE_IOTDB_RPC_COMPRESSION = true;
 
@@ -1199,6 +1202,14 @@ public class Config {
 
   public void setENABLE_THRIFT_COMPRESSION(boolean ENABLE_THRIFT_COMPRESSION) {
     this.ENABLE_THRIFT_COMPRESSION = ENABLE_THRIFT_COMPRESSION;
+  }
+
+  public int getIOTDB_THRIFT_MAX_FRAME_SIZE() {
+    return IOTDB_THRIFT_MAX_FRAME_SIZE;
+  }
+
+  public void setIOTDB_THRIFT_MAX_FRAME_SIZE(int IOTDB_THRIFT_MAX_FRAME_SIZE) {
+    this.IOTDB_THRIFT_MAX_FRAME_SIZE = IOTDB_THRIFT_MAX_FRAME_SIZE;
   }
 
   public boolean isENABLE_IOTDB_RPC_COMPRESSION() {
@@ -2237,6 +2248,8 @@ public class Config {
 
     configProperties.addProperty(
         "Extern Param", "ENABLE_THRIFT_COMPRESSION", this.ENABLE_THRIFT_COMPRESSION);
+    configProperties.addProperty(
+        "Extern Param", "IOTDB_THRIFT_MAX_FRAME_SIZE", this.IOTDB_THRIFT_MAX_FRAME_SIZE);
     configProperties.addProperty(
         "Extern Param", "ENABLE_IoTDB_RPC_COMPRESSION", this.ENABLE_IOTDB_RPC_COMPRESSION);
     configProperties.addProperty("Extern Param", "USE_SSL", this.USE_SSL);

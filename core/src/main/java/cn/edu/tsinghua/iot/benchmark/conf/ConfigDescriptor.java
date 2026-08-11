@@ -344,6 +344,10 @@ public class ConfigDescriptor {
             Boolean.parseBoolean(
                 properties.getProperty(
                     "ENABLE_THRIFT_COMPRESSION", config.isENABLE_THRIFT_COMPRESSION() + "")));
+        config.setIOTDB_THRIFT_MAX_FRAME_SIZE(
+            Integer.parseInt(
+                properties.getProperty(
+                    "IOTDB_THRIFT_MAX_FRAME_SIZE", config.getIOTDB_THRIFT_MAX_FRAME_SIZE() + "")));
         config.setENABLE_IOTDB_RPC_COMPRESSION(
             Boolean.parseBoolean(
                 properties.getProperty(
@@ -765,6 +769,10 @@ public class ConfigDescriptor {
     result &= checkDatabaseTableDeviceRelationship();
     result &= checkDeviceNumPerWrite();
     result &= checkTag();
+    if (config.getIOTDB_THRIFT_MAX_FRAME_SIZE() <= 0) {
+      LOGGER.error("IOTDB_THRIFT_MAX_FRAME_SIZE must be greater than 0");
+      result = false;
+    }
     if (!commonlyUseDB()) {
       if (config.isALIGN_BY_DEVICE()) {
         result = false;
