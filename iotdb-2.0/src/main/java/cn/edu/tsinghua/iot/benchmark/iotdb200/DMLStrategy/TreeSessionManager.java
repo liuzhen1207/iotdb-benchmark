@@ -196,6 +196,7 @@ public class TreeSessionManager extends SessionManager {
         .nodeUrls(hostUrls)
         .username(dbConfig.getUSERNAME())
         .password(dbConfig.getPASSWORD())
+        .thriftMaxFrameSize(config.getIOTDB_THRIFT_MAX_FRAME_SIZE())
         .enableRedirection(true)
         .version(Version.V_1_0)
         .sqlDialect(config.getIoTDB_DIALECT_MODE().name())

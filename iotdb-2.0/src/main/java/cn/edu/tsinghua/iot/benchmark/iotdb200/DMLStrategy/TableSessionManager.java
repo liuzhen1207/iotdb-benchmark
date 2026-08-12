@@ -168,6 +168,7 @@ public class TableSessionManager extends SessionManager {
         .nodeUrls(hostUrls)
         .username(dbConfig.getUSERNAME())
         .password(dbConfig.getPASSWORD())
+        .thriftMaxFrameSize(config.getIOTDB_THRIFT_MAX_FRAME_SIZE())
         .enableCompaction(config.isENABLE_THRIFT_COMPRESSION())
         .enableCompression(config.isENABLE_IOTDB_RPC_COMPRESSION())
         .enableRedirection(true)

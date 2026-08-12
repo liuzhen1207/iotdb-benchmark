@@ -25,6 +25,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -37,6 +38,7 @@ public class ConfigDescriptorTest extends BenchmarkTestBase {
   private int originalDeviceNumber;
   private int originalSchemaClientNumber;
   private int originalDataClientNumber;
+  private int originalIoTDBThriftMaxFrameSize;
 
   @Before
   public void before() {
@@ -45,6 +47,7 @@ public class ConfigDescriptorTest extends BenchmarkTestBase {
     originalDeviceNumber = config.getDEVICE_NUMBER();
     originalSchemaClientNumber = config.getSCHEMA_CLIENT_NUMBER();
     originalDataClientNumber = config.getDATA_CLIENT_NUMBER();
+    originalIoTDBThriftMaxFrameSize = config.getIOTDB_THRIFT_MAX_FRAME_SIZE();
   }
 
   @After
@@ -55,6 +58,7 @@ public class ConfigDescriptorTest extends BenchmarkTestBase {
     config.setDEVICE_NUMBER(originalDeviceNumber);
     config.setSCHEMA_CLIENT_NUMBER(originalSchemaClientNumber);
     config.setDATA_CLIENT_NUMBER(originalDataClientNumber);
+    config.setIOTDB_THRIFT_MAX_FRAME_SIZE(originalIoTDBThriftMaxFrameSize);
   }
 
   /**
@@ -85,6 +89,16 @@ public class ConfigDescriptorTest extends BenchmarkTestBase {
     config.setDEVICE_NUMBER(50);
     assertFalse(
         "client-bind with device number < data client number must be rejected",
+        ConfigDescriptor.getInstance().checkConfig());
+  }
+
+  @Test
+  public void testIoTDBThriftMaxFrameSize() {
+    assertEquals(64 * 1024 * 1024, config.getIOTDB_THRIFT_MAX_FRAME_SIZE());
+
+    config.setIOTDB_THRIFT_MAX_FRAME_SIZE(0);
+    assertFalse(
+        "IoTDB Thrift max frame size must be positive",
         ConfigDescriptor.getInstance().checkConfig());
   }
 }
